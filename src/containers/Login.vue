@@ -62,6 +62,12 @@ export default {
         this.msg = this.getErrorMsg()
       }
     }
+  },
+  mounted() {
+    this.msg = this.getErrorMsg()
+  },
+  beforeDestroy() {
+    this.$store.commit('reset_user', '')
   }
 }
 </script>
