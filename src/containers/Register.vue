@@ -85,7 +85,9 @@ export default {
     this.msg = this.getErrorMsg()
   },
   beforeDestroy() {
-    this.$store.commit('reset_user', '')
+    if (this.getErrorMsg()) {
+      this.$store.commit('reset_user', '')
+    }
   }
 }
 </script>
