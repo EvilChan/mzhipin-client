@@ -57,6 +57,9 @@ export default {
         this.$router.replace('/dashen')
       } else {
         this.msg = this.getErrorMsg()
+        if (this.msg === '请先登陆') {
+          this.$router.replace('/login')
+        }
       }
     }
   }

@@ -71,6 +71,9 @@ export default {
         this.$router.replace('/laoban')
       } else {
         this.msg = this.getErrorMsg()
+        if (this.msg === '请先登陆') {
+          this.$router.replace('/login')
+        }
       }
     }
   }
