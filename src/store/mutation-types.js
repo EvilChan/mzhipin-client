@@ -9,3 +9,6 @@ export const RECEIVE_USER = 'receive_user'
 
 // 重置用户
 export const RESET_USER = 'reset_user'
+
+// 接收用户列表数据
+export const RECEIVE_USER_LIST = 'receive_user_list'

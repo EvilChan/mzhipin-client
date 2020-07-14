@@ -12,9 +12,17 @@ import {
   GridItem,
   Tabbar,
   TabbarItem,
-  Empty
+  Empty,
+  PullRefresh,
+  Row,
+  Col,
+  Image as VanImage
 } from 'vant'
 
+Vue.use(VanImage)
+Vue.use(Col)
+Vue.use(Row)
+Vue.use(PullRefresh)
 Vue.use(Empty)
 Vue.use(TabbarItem)
 Vue.use(Tabbar)

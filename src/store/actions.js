@@ -1,9 +1,16 @@
-import { reqRegister, reqLogin, reqUpdateUser, reqUser } from '../api'
+import {
+  reqRegister,
+  reqLogin,
+  reqUpdateUser,
+  reqUser,
+  reqUserList
+} from '../api'
 import {
   AUTH_SUCCESS,
   ERROR_MSG,
   RECEIVE_USER,
-  RESET_USER
+  RESET_USER,
+  RECEIVE_USER_LIST
 } from './mutation-types'
 
 // 授权成功的同步action
@@ -17,6 +24,12 @@ const receiveUser = user => ({ type: RECEIVE_USER, data: user })
 
 // 重置用户的同步action
 const resetUser = msg => ({ type: RESET_USER, data: msg })
+
+// 获取用户列表的同步action
+const receiveUserList = userList => ({
+  type: RECEIVE_USER_LIST,
+  data: userList
+})
 
 export default {
   // 注册异步 action
@@ -70,6 +83,14 @@ export default {
     } else {
       commit(resetUser(res.msg))
       return false
+    }
+  },
+  // 获取用户列表的异步action
+  async getUserList({ commit }, type) {
+    const res = await reqUserList(type)
+    if (res.code === 0) {
+      commit(receiveUserList(res.data))
+      return true
     }
   }
 }

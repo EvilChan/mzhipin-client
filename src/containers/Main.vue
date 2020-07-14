@@ -8,7 +8,7 @@
 
 <script>
 import Cookies from 'js-cookie'
-import { mapGetters, mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import NavFooter from '../components/NavFooter.vue'
 import { setRedirectTo } from '../utils'
 
@@ -20,8 +20,7 @@ export default {
   data() {
     return {
       userid: Cookies.get('userid'),
-      path: this.$route.path,
-      currentNav: null,
+      currentNav: '',
       navList: [
         {
           path: '/laoban',
@@ -51,37 +50,33 @@ export default {
     }
   },
   methods: {
-    ...mapGetters(['getStateUser']),
     ...mapActions(['getUser']),
-    navBarFooter(path) {
-      if (path !== '/') {
-        const user = this.getStateUser()
-        const currentNav = this.navList.find(nav => nav.path === path)
-        if (currentNav) {
-          this.currentNav = currentNav
-          if (user.type === 'laoban') {
-            this.navList[1].hide = true
-            this.navList[0].hide = false
-          } else {
-            this.navList[0].hide = true
-            this.navList[1].hide = false
-          }
+    navBarFooter(user) {
+      const currentNav = this.navList.find(
+        nav => nav.path === setRedirectTo(user.type, user.header)
+      )
+      if (currentNav) {
+        this.currentNav = currentNav
+        if (user.type === 'laoban') {
+          this.navList[1].hide = true
+          this.navList[0].hide = false
+        } else {
+          this.navList[0].hide = true
+          this.navList[1].hide = false
         }
       }
     },
-    async loading() {
+    async loading(user) {
       if (this.userid === undefined) {
         this.$router.replace('/login')
         this.$store.commit('reset_user', { data: '请先登陆' })
         return
       }
-      const user = this.getStateUser()
       if (!user._id && !(await this.getUser())) {
         this.$router.replace('/login')
         this.$store.commit('reset_user', { data: '请先登陆' })
         return
       } else {
-        const user = this.getStateUser()
         let path = this.path
         if (path === '/') {
           path = setRedirectTo(user.type, user.header)
@@ -92,8 +87,17 @@ export default {
     }
   },
   created() {
-    this.loading()
-    this.navBarFooter(this.path)
+    this.loading(this.user)
+    this.navBarFooter(this.user)
+  },
+  computed: {
+    ...mapState(['user'])
+  },
+  watch: {
+    user(val) {
+      this.loading(val)
+      this.navBarFooter(val)
+    }
   }
 }
 </script>

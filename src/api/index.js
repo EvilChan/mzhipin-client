@@ -13,4 +13,7 @@ export const reqLogin = (username, password) =>
 export const reqUpdateUser = user => ajax(`${BASE_URL}/update`, user, 'POST')
 
 // 获取用户信息
-export const reqUser = () => ajax('/api/user')
+export const reqUser = () => ajax(`${BASE_URL}/user`)
+
+// 获取用户列表
+export const reqUserList = type => ajax(`${BASE_URL}/userlist`, { type })
