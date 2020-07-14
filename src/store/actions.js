@@ -1,11 +1,22 @@
-import { reqRegister, reqLogin } from '../api'
-import { AUTH_SUCCESS, ERROR_MSG } from './mutation-types'
+import { reqRegister, reqLogin, reqUpdateUser } from '../api'
+import {
+  AUTH_SUCCESS,
+  ERROR_MSG,
+  RECEIVE_USER,
+  RESET_USER
+} from './mutation-types'
 
 // 授权成功的同步action
 const authSuccess = user => ({ type: AUTH_SUCCESS, data: user })
 
 // 错误提示信息的同步action
 const errorMsg = msg => ({ type: ERROR_MSG, data: msg })
+
+// 接收用户的同步action
+const receiveUser = user => ({ type: RECEIVE_USER, data: user })
+
+// 重置用户的同步action
+const resetUser = msg => ({ type: RESET_USER, data: msg })
 
 export default {
   // 注册异步 action
@@ -25,6 +36,7 @@ export default {
       return false
     }
   },
+  // 登陆异步 action
   async login({ commit }, user) {
     const { username, password } = user
     if (!username) return commit(errorMsg('用户名必须指定'))
@@ -35,6 +47,17 @@ export default {
       return true
     } else {
       commit(errorMsg(res.msg))
+      return false
+    }
+  },
+  // 更新用户异步 action
+  async updateUser({ commit }, user) {
+    const res = await reqUpdateUser(user)
+    if (res.code === 0) {
+      commit(receiveUser(res.data))
+      return true
+    } else {
+      commit(resetUser(res.msg))
       return false
     }
   }

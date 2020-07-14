@@ -7,9 +7,13 @@ import {
   RadioGroup,
   Button,
   CellGroup,
-  Cell
+  Cell,
+  Grid,
+  GridItem
 } from 'vant'
 
+Vue.use(GridItem)
+Vue.use(Grid)
 Vue.use(Cell)
 Vue.use(CellGroup)
 Vue.use(Button)

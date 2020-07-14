@@ -65,3 +65,10 @@ export default {
   }
 }
 </script>
+
+<style lang="less" scoped>
+.error-msg .van-cell__value--alone {
+  text-align: center;
+  color: red;
+}
+</style>

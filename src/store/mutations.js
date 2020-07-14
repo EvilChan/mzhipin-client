@@ -1,4 +1,9 @@
-import { AUTH_SUCCESS, ERROR_MSG } from './mutation-types'
+import {
+  AUTH_SUCCESS,
+  ERROR_MSG,
+  RECEIVE_USER,
+  RESET_USER
+} from './mutation-types'
 import { setRedirectTo } from '../utils'
 
 export default {
@@ -8,5 +13,11 @@ export default {
   },
   [ERROR_MSG](state, action) {
     state.user = { ...state.user, msg: action.data }
+  },
+  [RECEIVE_USER](state, action) {
+    state.user = action.data
+  },
+  [RESET_USER](state, action) {
+    state.user = { username: '', type: '', msg: action.data, redirectTo: '' }
   }
 }
