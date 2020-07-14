@@ -5,6 +5,7 @@ import Login from '../containers/Login.vue'
 import Main from '../containers/Main.vue'
 import DashenInfo from '../containers/DashenInfo.vue'
 import LaobanInfo from '../containers/LaobanInfo.vue'
+import Dashen from '../containers/Dashen.vue'
 
 Vue.use(VueRouter)
 
@@ -33,6 +34,11 @@ const routes = [
         path: '/laobaninfo',
         name: 'LaobanInfo',
         component: LaobanInfo
+      },
+      {
+        path: '/dashen',
+        name: 'Dashen',
+        component: Dashen
       }
     ]
   }

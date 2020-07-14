@@ -1,4 +1,4 @@
-import { reqRegister, reqLogin, reqUpdateUser } from '../api'
+import { reqRegister, reqLogin, reqUpdateUser, reqUser } from '../api'
 import {
   AUTH_SUCCESS,
   ERROR_MSG,
@@ -53,6 +53,17 @@ export default {
   // 更新用户异步 action
   async updateUser({ commit }, user) {
     const res = await reqUpdateUser(user)
+    if (res.code === 0) {
+      commit(receiveUser(res.data))
+      return true
+    } else {
+      commit(resetUser(res.msg))
+      return false
+    }
+  },
+  // 获取用户异步action
+  async getUser({ commit }) {
+    const res = await reqUser()
     if (res.code === 0) {
       commit(receiveUser(res.data))
       return true
