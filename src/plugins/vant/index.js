@@ -11,9 +11,11 @@ import {
   Grid,
   GridItem,
   Tabbar,
-  TabbarItem
+  TabbarItem,
+  Empty
 } from 'vant'
 
+Vue.use(Empty)
 Vue.use(TabbarItem)
 Vue.use(Tabbar)
 Vue.use(GridItem)
