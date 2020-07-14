@@ -9,9 +9,13 @@ import {
   CellGroup,
   Cell,
   Grid,
-  GridItem
+  GridItem,
+  Tabbar,
+  TabbarItem
 } from 'vant'
 
+Vue.use(TabbarItem)
+Vue.use(Tabbar)
 Vue.use(GridItem)
 Vue.use(Grid)
 Vue.use(Cell)
