@@ -77,10 +77,9 @@ export default {
         this.$store.commit('reset_user', { data: '请先登陆' })
         return
       } else {
-        let path = this.path
+        let path = this.$route.path
         if (path === '/') {
           path = setRedirectTo(user.type, user.header)
-          this.navBarFooter(path)
           return this.$router.replace(path)
         }
       }
