@@ -3,7 +3,9 @@ import {
   ERROR_MSG,
   RECEIVE_USER,
   RESET_USER,
-  RECEIVE_USER_LIST
+  RECEIVE_USER_LIST,
+  RECEIVE_MSG_LIST,
+  RECEIVE_MSG
 } from './mutation-types'
 import { setRedirectTo } from '../utils'
 
@@ -23,5 +25,16 @@ export default {
   },
   [RECEIVE_USER_LIST](state, action) {
     state.userList = action.data
+  },
+  [RECEIVE_MSG_LIST](state, action) {
+    const { users, chatMsgs } = action.data
+    state.chat = { users, chatMsgs }
+  },
+  [RECEIVE_MSG](state, action) {
+    const { chatMsg } = action.data
+    state.chat = {
+      users: state.chat.users,
+      chatMsgs: [...state.chat.chatMsgs, chatMsg]
+    }
   }
 }

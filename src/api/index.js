@@ -17,3 +17,6 @@ export const reqUser = () => ajax(`${BASE_URL}/user`)
 
 // 获取用户列表
 export const reqUserList = type => ajax(`${BASE_URL}/userlist`, { type })
+
+// 获取当前用户的聊天消息列表
+export const reqChatMsgList = () => ajax(`${BASE_URL}/msglist`)

@@ -5,5 +5,10 @@ export default {
     msg: '',
     redirectTo: ''
   },
-  userList: []
+  userList: [],
+  chat: {
+    users: {},
+    chatMsgs: [],
+    unReadCount: 0
+  }
 }

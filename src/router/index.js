@@ -9,6 +9,7 @@ import Dashen from '../containers/Dashen.vue'
 import Laoban from '../containers/Laoban.vue'
 import Message from '../containers/Message.vue'
 import Personal from '../containers/Personal.vue'
+import Chat from '../containers/Chat.vue'
 
 Vue.use(VueRouter)
 
@@ -59,6 +60,11 @@ const routes = [
         component: Personal
       }
     ]
+  },
+  {
+    path: '/chat/:userid',
+    name: 'Chat',
+    component: Chat
   }
 ]
 
