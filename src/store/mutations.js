@@ -5,7 +5,8 @@ import {
   RESET_USER,
   RECEIVE_USER_LIST,
   RECEIVE_MSG_LIST,
-  RECEIVE_MSG
+  RECEIVE_MSG,
+  MSG_READ
 } from './mutation-types'
 import { setRedirectTo } from '../utils'
 
@@ -45,6 +46,20 @@ export default {
       unReadCount:
         state.chat.unReadCount +
         (!chatMsg.read && chatMsg.to === userid ? 1 : 0)
+    }
+  },
+  [MSG_READ](state, action) {
+    const { from, to, count } = action.data
+    state.chat = {
+      users: state.chat.users,
+      chatMsgs: state.chat.chatMsgs.map(msg => {
+        if (msg.from === from && msg.to === to && !msg.read) {
+          return { ...msg, read: true }
+        } else {
+          return msg
+        }
+      }),
+      unReadCount: parseInt(state.chat.unReadCount) - parseInt(count)
     }
   }
 }

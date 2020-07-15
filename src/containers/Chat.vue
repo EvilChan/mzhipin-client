@@ -82,7 +82,7 @@ export default {
   },
   methods: {
     ...mapGetters(['targetUser']),
-    ...mapActions(['getUser']),
+    ...mapActions(['getUser', 'readMsg']),
     async loading(user) {
       if (this.userid === undefined) {
         this.$router.replace('/login')
@@ -113,6 +113,11 @@ export default {
           : null
       }
     },
+    loading4() {
+      const from = this.$route.params.userid
+      const to = this.user._id
+      this.readMsg({ from, to })
+    },
     goBack() {
       this.$router.history.go(-1)
     },
@@ -140,6 +145,7 @@ export default {
     this.loading(this.user)
     this.loading2(this.user, this.chat)
     this.loading3()
+    this.loading4()
   },
   mounted() {
     window.scrollTo(0, window.document.body.scrollHeight)
@@ -154,9 +160,12 @@ export default {
     user(val) {
       this.loading(val)
     },
-    chat(val) {
+    chat(val, oldVal) {
       this.loading2(this.user, val)
       this.loading3()
+      if (val.chatMsgs.length !== oldVal.chatMsgs.length) {
+        this.loading4()
+      }
     }
   }
 }

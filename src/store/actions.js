@@ -5,7 +5,8 @@ import {
   reqUpdateUser,
   reqUser,
   reqUserList,
-  reqChatMsgList
+  reqChatMsgList,
+  reqReadMsg
 } from '../api'
 import {
   AUTH_SUCCESS,
@@ -14,7 +15,8 @@ import {
   RESET_USER,
   RECEIVE_USER_LIST,
   RECEIVE_MSG_LIST,
-  RECEIVE_MSG
+  RECEIVE_MSG,
+  MSG_READ
 } from './mutation-types'
 
 // 授权成功的同步action
@@ -45,6 +47,12 @@ const receiveMsgList = ({ users, chatMsgs, userid }) => ({
 const receiveMsg = (users, chatMsg, userid) => ({
   type: RECEIVE_MSG,
   data: { users, chatMsg, userid }
+})
+
+// 读取某个聊天信息的同步action
+const msgRead = ({ count, from, to }) => ({
+  type: MSG_READ,
+  data: { count, from, to }
 })
 
 const initIO = (commit, userid) => {
@@ -142,6 +150,18 @@ export default {
     if (res.code === 0) {
       commit(receiveUserList(res.data))
       return true
+    }
+  },
+  // 读取消息的异步action
+  async readMsg({ commit }, { from, to }) {
+    const res = await reqReadMsg(from)
+    if (res.code === 0) {
+      const count = res.data
+      commit(msgRead({ count, from, to }))
+      return true
+    } else {
+      commit(errorMsg(res.msg))
+      return false
     }
   }
 }

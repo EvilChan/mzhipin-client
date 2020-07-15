@@ -21,7 +21,10 @@
           "
         />
       </template>
-      <van-icon class="badge" :badge="msg.unReadCount" />
+      <van-icon
+        class="badge"
+        :badge="msg.unReadCount > 0 ? msg.unReadCount : null"
+      />
     </van-cell>
   </div>
 </template>

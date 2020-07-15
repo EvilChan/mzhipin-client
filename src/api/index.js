@@ -20,3 +20,6 @@ export const reqUserList = type => ajax(`${BASE_URL}/userlist`, { type })
 
 // 获取当前用户的聊天消息列表
 export const reqChatMsgList = () => ajax(`${BASE_URL}/msglist`)
+
+// 修改指定消息为已读
+export const reqReadMsg = from => ajax(`${BASE_URL}/readmsg`, { from }, 'POST')
