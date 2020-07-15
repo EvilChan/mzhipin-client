@@ -16,9 +16,11 @@ import {
   PullRefresh,
   Row,
   Col,
-  Image as VanImage
+  Image as VanImage,
+  Icon
 } from 'vant'
 
+Vue.use(Icon)
 Vue.use(VanImage)
 Vue.use(Col)
 Vue.use(Row)

@@ -4,7 +4,7 @@
       <van-tabbar-item
         v-for="value in iconList"
         :key="value.text"
-        :badge="value.path === '/message' ? count : null"
+        :badge="formatUnReadCount(value)"
       >
         <span>{{ value.text }}</span>
         <template #icon="props">
@@ -25,8 +25,18 @@ export default {
   data() {
     return {
       active: 0,
-      count: null,
       iconList: []
+    }
+  },
+  methods: {
+    onChange(index) {
+      this.$router.history.replace(this.iconList[index].path)
+    },
+    formatUnReadCount(value) {
+      if (value.path === '/message' && this.unReadCount > 0) {
+        return this.unReadCount
+      }
+      return null
     }
   },
   created() {
@@ -47,11 +57,6 @@ export default {
         return (this.active = idx)
       }
     })
-  },
-  methods: {
-    onChange(index) {
-      this.$router.history.replace(this.iconList[index].path)
-    }
   }
 }
 </script>

@@ -41,23 +41,27 @@ const receiveMsgList = ({ users, chatMsgs, userid }) => ({
   data: { users, chatMsgs, userid }
 })
 
+// 接收一个消息的同步action
+const receiveMsg = (users, chatMsg, userid) => ({
+  type: RECEIVE_MSG,
+  data: { users, chatMsg, userid }
+})
+
 const initIO = (commit, userid) => {
   if (!io.socket) {
     io.socket = io('ws://localhost:4000')
-    io.socket.on('receiveMsg', chatMsg => {
+    io.socket.on('receiveMsg', async chatMsg => {
       console.log('客户端接收服务器消息：', chatMsg)
       if (userid === chatMsg.from || userid === chatMsg.to) {
-        commit(receiveMsg(chatMsg, userid))
+        const res = await reqChatMsgList()
+        if (res.code === 0) {
+          const { users } = res.data
+          commit(receiveMsg(users, chatMsg, userid))
+        }
       }
     })
   }
 }
-
-// 接收一个消息的同步action
-const receiveMsg = (chatMsg, user_id) => ({
-  type: RECEIVE_MSG,
-  data: { chatMsg, user_id }
-})
 
 // 异步获取消息列表数据
 const getMsgList = async (commit, userid) => {

@@ -142,7 +142,6 @@ export default {
     this.loading3()
   },
   mounted() {
-    console.log('mounted')
     window.scrollTo(0, window.document.body.scrollHeight)
   },
   updated() {

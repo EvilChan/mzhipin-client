@@ -2,7 +2,7 @@
   <div>
     <van-nav-bar v-if="currentNav" :title="currentNav.title" />
     <router-view />
-    <NavFooter v-if="currentNav" :navList="navList" />
+    <NavFooter v-if="currentNav" :navList="navList" :unReadCount="count" />
   </div>
 </template>
 
@@ -21,6 +21,7 @@ export default {
     return {
       userid: Cookies.get('userid'),
       currentNav: '',
+      count: 0,
       navList: [
         {
           path: '/laoban',
@@ -51,10 +52,8 @@ export default {
   },
   methods: {
     ...mapActions(['getUser']),
-    navBarFooter(user) {
-      const currentNav = this.navList.find(
-        nav => nav.path === setRedirectTo(user.type, user.header)
-      )
+    navBarFooter(user, path) {
+      const currentNav = this.navList.find(nav => nav.path === path)
       if (currentNav) {
         this.currentNav = currentNav
         if (user.type === 'laoban') {
@@ -87,15 +86,22 @@ export default {
   },
   created() {
     this.loading(this.user)
-    this.navBarFooter(this.user)
+    this.navBarFooter(this.user, this.$route.path)
   },
   computed: {
-    ...mapState(['user'])
+    ...mapState(['user', 'chat'])
   },
   watch: {
     user(val) {
       this.loading(val)
-      this.navBarFooter(val)
+    },
+    $route: {
+      handler(val) {
+        this.navBarFooter(this.user, val.path)
+      }
+    },
+    chat(val) {
+      this.count = val.unReadCount
     }
   }
 }

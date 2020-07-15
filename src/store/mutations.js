@@ -27,14 +27,24 @@ export default {
     state.userList = action.data
   },
   [RECEIVE_MSG_LIST](state, action) {
-    const { users, chatMsgs } = action.data
-    state.chat = { users, chatMsgs }
+    const { users, chatMsgs, userid } = action.data
+    state.chat = {
+      users,
+      chatMsgs,
+      unReadCount: chatMsgs.reduce(
+        (preTotal, msg) => preTotal + (!msg.read && msg.to === userid ? 1 : 0),
+        0
+      )
+    }
   },
   [RECEIVE_MSG](state, action) {
-    const { chatMsg } = action.data
+    const { users, chatMsg, userid } = action.data
     state.chat = {
-      users: state.chat.users,
-      chatMsgs: [...state.chat.chatMsgs, chatMsg]
+      users: users,
+      chatMsgs: [...state.chat.chatMsgs, chatMsg],
+      unReadCount:
+        state.chat.unReadCount +
+        (!chatMsg.read && chatMsg.to === userid ? 1 : 0)
     }
   }
 }
