@@ -10,7 +10,7 @@
 git clone https://github.com/CoderAlchemy/mzhipin-client.git
 cd mzhipin-client
 npm install
-npm run dev
+npm run serve
 ```
 
 > [后端项目传送门](http://github.com/CoderAlchemy/mzhipin-server.git)
