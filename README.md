@@ -4,7 +4,7 @@
 >
 > Node
 
-> 项目下载
+> 项目下载（嫌慢的把github换成gitee）
 
 ```
 git clone https://github.com/CoderAlchemy/mzhipin-client.git
@@ -13,7 +13,7 @@ npm install
 npm run serve
 ```
 
-> [后端项目传送门](http://github.com/CoderAlchemy/mzhipin-server.git)
+> 后端项目传送门：http://github.com/CoderAlchemy/mzhipin-server.git
 
 ## 项目描述：
 
