@@ -6,11 +6,18 @@
 
 > 项目下载（嫌慢的把github换成gitee）
 
-```
+```powershell
 git clone https://github.com/CoderAlchemy/mzhipin-client.git
 cd mzhipin-client
 npm install
 npm run serve
+```
+or
+```powershell
+git clone https://github.com/CoderAlchemy/mzhipin-client.git
+cd mzhipin-client
+yarn
+yarn serve
 ```
 
 > 后端项目传送门：http://github.com/CoderAlchemy/mzhipin-server.git
